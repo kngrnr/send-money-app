@@ -1,4 +1,4 @@
-# send_money_app
+# Send Money App
 
 A new Flutter project.
 
