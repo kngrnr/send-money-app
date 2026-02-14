@@ -8,7 +8,6 @@ abstract class TransactionRepository {
   Future<List<TransactionModel>> fetchAll();
 }
 
-
 class TransactionRepositoryImpl implements TransactionRepository {
   final ApiService apiService;
 
