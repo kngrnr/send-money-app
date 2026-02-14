@@ -1,21 +1,26 @@
+import 'package:send_money_app/src/core/network/api_service.dart';
+
 abstract class WalletRepository {
   Future<double> getBalance();
   Future<void> deductBalance(double amount);
 }
 
 class WalletRepositoryImpl implements WalletRepository {
-  double _balance = 0.00;
+  final ApiService apiService;
+
+  WalletRepositoryImpl(this.apiService);
 
   @override
   Future<double> getBalance() async {
-    return _balance;
+    final data = await apiService.get('/wallet/balance');
+    return data['balance'].toDouble();
   }
 
   @override
   Future<void> deductBalance(double amount) async {
-    if (amount > _balance) {
-      throw Exception('Insufficient balance');
-    }
-    _balance -= amount;
+    await apiService.post(
+      '/wallet/send',
+      data: {'amount': amount},
+    );
   }
 }
