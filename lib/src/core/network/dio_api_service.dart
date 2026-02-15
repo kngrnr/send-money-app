@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:send_money_app/src/core/network/api_service.dart';
 
-
+@LazySingleton(as: ApiService)
 class DioApiService implements ApiService {
   final Dio dio;
 

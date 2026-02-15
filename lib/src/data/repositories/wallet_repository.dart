@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:send_money_app/src/core/network/api_service.dart';
 
 abstract class WalletRepository {
@@ -5,6 +6,7 @@ abstract class WalletRepository {
   Future<void> deductBalance(double amount);
 }
 
+@LazySingleton(as: WalletRepository)
 class WalletRepositoryImpl implements WalletRepository {
   final ApiService apiService;
 

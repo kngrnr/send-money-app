@@ -1,5 +1,4 @@
-
-
+import 'package:injectable/injectable.dart';
 import 'package:send_money_app/src/core/models/transaction_model.dart';
 import 'package:send_money_app/src/core/network/api_service.dart';
 
@@ -8,6 +7,7 @@ abstract class TransactionRepository {
   Future<List<TransactionModel>> fetchAll();
 }
 
+@LazySingleton(as: TransactionRepository)
 class TransactionRepositoryImpl implements TransactionRepository {
   final ApiService apiService;
 
