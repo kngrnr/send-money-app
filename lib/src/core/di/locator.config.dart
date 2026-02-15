@@ -17,7 +17,9 @@ import '../../data/repositories/auth_repository.dart' as _i481;
 import '../../data/repositories/transaction_repository.dart' as _i684;
 import '../../data/repositories/wallet_repository.dart' as _i147;
 import '../../data/usecases/login_usecase.dart' as _i917;
+import '../../data/usecases/wallet_usecase.dart' as _i292;
 import '../../presentation/cubit/auth/auth_cubit.dart' as _i714;
+import '../../presentation/cubit/wallet/wallet_cubit.dart' as _i748;
 import '../network/api_service.dart' as _i921;
 import '../network/dio_api_service.dart' as _i906;
 import '../network/dio_client.dart' as _i667;
@@ -54,6 +56,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i714.AuthCubit>(() => cubitModule.authCubit(
           gh<_i917.LoginUseCase>(),
           gh<_i917.LogoutUseCase>(),
+          gh<_i667.DioClient>(),
+        ));
+    gh.lazySingleton<_i292.GetWalletUseCase>(
+        () => cubitModule.getWalletUseCase(gh<_i147.WalletRepository>()));
+    gh.lazySingleton<_i292.DeductBalanceUseCase>(
+        () => cubitModule.deductBalanceUseCase(gh<_i147.WalletRepository>()));
+    gh.lazySingleton<_i748.WalletCubit>(() => cubitModule.walletCubit(
+          gh<_i292.GetWalletUseCase>(),
+          gh<_i292.DeductBalanceUseCase>(),
         ));
     return this;
   }
