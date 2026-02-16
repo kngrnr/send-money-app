@@ -10,6 +10,17 @@ Send Money App is a mobile application built with Flutter that enables users to:
 - **Send Money**: Send money to other users
 - **Transaction History**: Track all transactions 
 
+### Test User Credentials
+
+Use the following credentials to test the app:
+
+| Username | Password |
+|----------|----------|
+| `king123` | `123456` |
+| `juan123` | `abcdef` |
+
+**Note**: When sending money, use the recipient's username (e.g., `king123` or `juan123`) as the destination username.
+
 ## Features
 
 - User authentication
@@ -131,17 +142,6 @@ fvm flutter test test/cubits/auth_cubit_test.dart
 This project uses a **custom mock API** created for development and testing purposes. 
 
 **Mock API Repository**: [kngrnr/mock-send-money-api](https://github.com/kngrnr/mock-send-money-api)
-
-### Test User Credentials
-
-Use the following credentials to test the app:
-
-| Username | Password |
-|----------|----------|
-| `king123` | `123456` |
-| `juan123` | `abcdef` |
-
-**Note**: When sending money, use the recipient's username (e.g., `king123` or `juan123`) as the destination username.
 
 ## Architecture Documentation
 
