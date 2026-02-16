@@ -41,9 +41,10 @@ test/
 
 ## Prerequisites
 
-- Flutter SDK 3.0 or higher
-- Dart SDK 3.0 or higher
-- iOS 11.0+ or Android 5.0+
+- **FVM** (Flutter Version Manager) - [Install here](https://fvm.app/)
+- **Flutter 3.27.4** (managed via FVM)
+- **Dart 3.6+** (included with Flutter)
+- **iOS 11.0+** or **Android 5.0+**
 
 ## Getting Started
 
@@ -87,11 +88,6 @@ Run the app on your connected device or emulator:
 fvm flutter run
 ```
 
-Or run in release mode:
-
-```bash
-fvm flutter run --release
-```
 
 For iOS:
 ```bash
@@ -117,18 +113,19 @@ fvm flutter test
 fvm flutter test test/cubits/auth_cubit_test.dart
 ```
 
-### Run Tests with Coverage
-
-```bash
-fvm flutter test --coverage
-```
-
 ### Test Categories
 
 - **Unit Tests**: Core business logic, models, and use cases
 - **Repository Tests**: Data layer and API interactions
 - **BLoC Tests**: State management with Cubit
 - **Widget Tests**: UI components and pages
+
+## Mock API
+
+This project uses a **custom mock API** created for development and testing purposes. 
+
+**Mock API Repository**: [kngrnr/mock-send-money-api](https://github.com/kngrnr/mock-send-money-api)
+
 
 ## Architecture Documentation
 
