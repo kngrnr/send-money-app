@@ -92,7 +92,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                               ),
                             ),
                             subtitle: Text(
-                              DateFormat('MMM dd yyyy, hh:mm a').format(transaction.date),
+                              DateFormat('MMM dd yyyy, hh:mm a').format(transaction.date.toLocal()),
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontSize: 12,
