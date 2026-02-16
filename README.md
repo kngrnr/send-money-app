@@ -6,17 +6,16 @@ A Flutter application for sending money with user authentication, wallet managem
 
 Send Money App is a mobile application built with Flutter that enables users to:
 - **Authentication**: Login Workflow
-- **Wallet Management**: View and manage wallet balance
+- **Wallet Management**: View wallet balance
 - **Send Money**: Send money to other users
 - **Transaction History**: Track all transactions 
 
 ## Features
 
-- User authentication and authorization
-- Real-time wallet balance updates
-- Send money to other users
-- Complete transaction history
-- Mock API for development and testing
+- User authentication
+- Tallet balance 
+- Send money to others
+- Transaction history
 
 ## Project Structure
 
@@ -24,17 +23,26 @@ Send Money App is a mobile application built with Flutter that enables users to:
 lib/
 ├── main.dart
 └── src/
-    ├── core/          # Core utilities and constants
-    ├── data/          # Data layer (repositories, models)
-    └── presentation/  # UI layer (pages, cubits)
+    ├── core/
+    │   ├── di/              # Dependency injection
+    │   ├── models/          # Domain models
+    │   ├── network/         # Network client and API calls
+    │   └── routing/         # App routing configuration
+    ├── data/
+    │   ├── repositories/    # Data repositories
+    │   └── usecases/        # Business logic use cases
+    └── presentation/
+        ├── cubit/           # State management (Cubits)
+        ├── pages/           # UI screens
+        └── widgets/         # Reusable UI widgets
 
 test/
-├── cubits/           # BLoC tests
-├── models/           # Model tests
-├── network/          # API tests
+├── cubits/           # State management tests
+├── models/           # Domain model tests
+├── network/          # Network layer tests
 ├── pages/            # UI tests
 ├── repositories/     # Repository tests
-└── usecases/         # Use case tests
+└── usecases/         # Use case/business logic tests
 ```
 
 ## Prerequisites
