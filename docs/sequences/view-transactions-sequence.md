@@ -1,16 +1,21 @@
 ```mermaid
 sequenceDiagram
     actor User
-    participant DashboardPage
-    participant TransactionCubit
-    participant GetTransactionsUseCase
+    participant TransactionHistoryPage
+    participant TransactionHistoryCubit
+    participant FetchTransactionsUseCase
     participant TransactionRepository
+    participant ApiService
 
-    User ->> DashboardPage: Tap View Transactions
-    DashboardPage ->> TransactionCubit: loadTransactions()
-    TransactionCubit ->> GetTransactionsUseCase: execute()
-    GetTransactionsUseCase ->> TransactionRepository: fetchAll()
-    TransactionRepository -->> GetTransactionsUseCase: list
-    GetTransactionsUseCase -->> TransactionCubit: list
-    TransactionCubit -->> DashboardPage: LoadedState
+    User ->> TransactionHistoryPage: View page / Refresh
+    TransactionHistoryPage ->> TransactionHistoryCubit: fetchTransactions()
+    TransactionHistoryCubit ->> FetchTransactionsUseCase: execute()
+    FetchTransactionsUseCase ->> TransactionRepository: fetchAll()
+    TransactionRepository ->> ApiService: get('/api/transactions')
+    ApiService -->> TransactionRepository: List of transactions
+    TransactionRepository -->> FetchTransactionsUseCase: List of transactions
+    FetchTransactionsUseCase ->> FetchTransactionsUseCase: Sort by date (latest first)
+    FetchTransactionsUseCase -->> TransactionHistoryCubit: Sorted list
+    TransactionHistoryCubit -->> TransactionHistoryPage: TransactionHistoryLoaded(transactions)
+    TransactionHistoryPage -->> User: Display transactions
 ```

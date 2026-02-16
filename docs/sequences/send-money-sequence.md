@@ -4,21 +4,21 @@ sequenceDiagram
     participant SendMoneyPage
     participant SendMoneyCubit
     participant SendMoneyUseCase
-    participant WalletRepository
-    participant TransactionRepository
+    participant SendMoneyRepository
+    participant ApiService
 
-    User ->> SendMoneyPage: Enter amount
+    User ->> SendMoneyPage: Enter recipient & amount
     User ->> SendMoneyPage: Tap Submit
-    SendMoneyPage ->> SendMoneyCubit: sendMoney(amount)
-    SendMoneyCubit ->> SendMoneyUseCase: execute(amount)
+    SendMoneyPage ->> SendMoneyCubit: sendMoney(recipientUsername, amount)
+    SendMoneyCubit ->> SendMoneyUseCase: execute(recipientUsername, amount)
 
-    SendMoneyUseCase ->> WalletRepository: deductBalance()
-    WalletRepository -->> SendMoneyUseCase: success
+    SendMoneyUseCase ->> SendMoneyRepository: sendMoney(recipientUsername, amount)
+    SendMoneyRepository ->> ApiService: post('/api/send', data)
+    ApiService -->> SendMoneyRepository: SendMoneyResponse
+    SendMoneyRepository -->> SendMoneyUseCase: SendMoneyResponse
 
-    SendMoneyUseCase ->> TransactionRepository: saveTransaction()
-    TransactionRepository -->> SendMoneyUseCase: saved
-
-    SendMoneyUseCase -->> SendMoneyCubit: success
-    SendMoneyCubit -->> SendMoneyPage: Show Success BottomSheet
+    SendMoneyUseCase -->> SendMoneyCubit: SendMoneyResponse
+    SendMoneyCubit -->> SendMoneyPage: SendMoneySuccess(message, transactionId)
+    SendMoneyPage -->> User: Show Success Message
     
 ```
