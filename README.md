@@ -5,7 +5,7 @@ A Flutter application for sending money with user authentication, wallet managem
 ## About the Project
 
 Send Money App is a mobile application built with Flutter that enables users to:
-- **Authentication**: Secure login and registration system
+- **Authentication**: Login Workflow
 - **Wallet Management**: View and manage wallet balance
 - **Send Money**: Transfer funds to other users
 - **Transaction History**: Track all transactions with detailed records
@@ -126,6 +126,16 @@ This project uses a **custom mock API** created for development and testing purp
 
 **Mock API Repository**: [kngrnr/mock-send-money-api](https://github.com/kngrnr/mock-send-money-api)
 
+### Test User Credentials
+
+Use the following credentials to test the app:
+
+| Username | Password |
+|----------|----------|
+| `king123` | `123456` |
+| `juan123` | `abcdef` |
+
+**Note**: When sending money, use the recipient's username (e.g., `king123` or `juan123`) as the destination username.
 
 ## Architecture Documentation
 
