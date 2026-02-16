@@ -7,10 +7,8 @@ A Flutter application for sending money with user authentication, wallet managem
 Send Money App is a mobile application built with Flutter that enables users to:
 - **Authentication**: Login Workflow
 - **Wallet Management**: View and manage wallet balance
-- **Send Money**: Transfer funds to other users
-- **Transaction History**: Track all transactions with detailed records
-
-The app follows clean architecture principles with separation of concerns using BLoC pattern for state management.
+- **Send Money**: Send money to other users
+- **Transaction History**: Track all transactions 
 
 ## Features
 
