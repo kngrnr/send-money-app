@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:send_money_app/src/presentation/cubit/send_money/send_money_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/send_money/send_money_state.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_cubit.dart';
+import 'package:send_money_app/src/presentation/widgets/app_bar_widget.dart';
 
 class SendMoneyPage extends StatefulWidget {
   const SendMoneyPage({super.key});
@@ -93,13 +94,9 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/dashboard'),
-        ),
-        title: const Text('Send Money'),
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: 'Send Money',
+        showBackButton: true,
       ),
       body: BlocListener<SendMoneyCubit, SendMoneyState>(
         listener: (context, state) {

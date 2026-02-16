@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:send_money_app/src/presentation/cubit/auth/auth_cubit.dart';
-import 'package:send_money_app/src/presentation/cubit/auth/auth_state.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_state.dart';
+import 'package:send_money_app/src/presentation/widgets/app_bar_widget.dart';
 
 class DashBoardPage extends StatefulWidget {
   const DashBoardPage({super.key});
@@ -25,16 +24,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        centerTitle: false,
-        title: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            final username = (state is AuthLoaded) ? state.user.username : '';
-            return Text('@$username');
-          },
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Dashboard'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

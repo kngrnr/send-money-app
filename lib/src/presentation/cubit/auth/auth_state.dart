@@ -21,3 +21,9 @@ class AuthError extends AuthState {
   final String message;
   AuthError(this.message);
 }
+
+/// State for invalid login credentials (401 Unauthorized)
+class InvalidCredentials extends AuthState {
+  final String message;
+  InvalidCredentials(this.message);
+}

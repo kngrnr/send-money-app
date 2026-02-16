@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await apiService.post('/logout');
+    await apiService.post('/api/logout');
   }
 }
 

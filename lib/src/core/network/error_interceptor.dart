@@ -85,7 +85,7 @@ class DioErrorInterceptor extends Interceptor {
 
       case 401:
         return AppException(
-          message: 'Unauthorized. Please login again.',
+          message: 'Invalid username or password.',
           code: 'UNAUTHORIZED',
           originalException: dioError,
         );

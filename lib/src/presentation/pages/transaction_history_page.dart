@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:send_money_app/src/presentation/cubit/transaction/transaction_history_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/transaction/transaction_history_state.dart';
+import 'package:send_money_app/src/presentation/widgets/app_bar_widget.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});
@@ -24,13 +24,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop('/dashboard'),
-        ),
-        title: const Text('Transaction History'),
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: 'Transaction History',
+        showBackButton: true,
       ),
       body: BlocBuilder<TransactionHistoryCubit, TransactionHistoryState>(
         builder: (context, state) {
