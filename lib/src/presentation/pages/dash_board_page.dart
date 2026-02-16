@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:send_money_app/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/auth/auth_state.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_cubit.dart';
@@ -101,15 +102,14 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                   ),
                                   const SizedBox(height: 12),
                                   // Balance Amount
-                                  if (state is WalletLoading)
-                                    const SizedBox(
+                                  switch (state) {
+                                    WalletLoading() => const SizedBox(
                                       height: 32,
                                       child: CircularProgressIndicator(
                                         color: Colors.white,
                                       ),
-                                    )
-                                  else if (state is WalletLoaded)
-                                    Text(
+                                    ),
+                                    WalletLoaded() => Text(
                                       _isBalanceVisible
                                           ? '${state.wallet.currency} ${state.wallet.balance.toStringAsFixed(2)}'
                                           : '••••••',
@@ -118,17 +118,15 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                    )
-                                  else if (state is WalletError)
-                                    Text(
+                                    ),
+                                    WalletError() => Text(
                                       'Error: ${state.message}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
                                       ),
-                                    )
-                                  else
-                                    const Text(
+                                    ),
+                                    _ => const Text(
                                       '•••••',
                                       style: TextStyle(
                                         color: Colors.white,
@@ -136,6 +134,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                  },
                                 ],
                               ),
                             );
@@ -171,9 +170,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                     const SizedBox(height: 12),
                     // View Transactions Button
                     OutlinedButton.icon(
-                      onPressed: () {
-                        // TODO: Navigate to transaction history page
-                      },
+                      onPressed: () => context.push('/transaction-history'),
                       icon: const Icon(Icons.history),
                       label: const Text('View Transactions'),
                       style: OutlinedButton.styleFrom(

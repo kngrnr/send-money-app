@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:send_money_app/src/core/network/dio_client.dart';
+import 'package:send_money_app/src/core/network/logging_interceptor.dart';
 
 /// Injectable module for network dependencies
 /// Provides Dio and DioClient instances
@@ -16,7 +17,11 @@ abstract class NetworkModule {
         ),
       );
 
-  /// Provides Dio instance from DioClient
+  /// Provides Dio instance from DioClient with logging interceptor
   @singleton
-  Dio dio(DioClient client) => client.dio;
+  Dio dio(DioClient client) {
+    final dioInstance = client.dio;
+    dioInstance.interceptors.add(DioLoggingInterceptor());
+    return dioInstance;
+  }
 }

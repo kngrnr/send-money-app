@@ -4,6 +4,7 @@ import 'package:send_money_app/src/core/di/locator.dart';
 import 'package:send_money_app/src/core/routing/app_router.dart';
 import 'package:send_money_app/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_cubit.dart';
+import 'package:send_money_app/src/presentation/cubit/transaction/transaction_history_cubit.dart';
 
 void main() {
   // Setup dependency injection with injectable
@@ -22,6 +23,7 @@ class SendMoneyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => locator<AuthCubit>()),
         BlocProvider(create: (context) => locator<WalletCubit>()),
+        BlocProvider(create: (context) => locator<TransactionHistoryCubit>()),
       ],
       child: MaterialApp.router(
         title: 'Send Money App',

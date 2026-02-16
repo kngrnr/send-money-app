@@ -3,7 +3,8 @@ import 'package:send_money_app/src/core/models/transaction_model.dart';
 import 'package:send_money_app/src/core/network/api_service.dart';
 
 abstract class TransactionRepository {
-  Future<void> save(TransactionModel transaction);
+  /// Fetch transactions for the current authenticated user
+  /// Requires valid Bearer token in Authorization header
   Future<List<TransactionModel>> fetchAll();
 }
 
@@ -14,25 +15,11 @@ class TransactionRepositoryImpl implements TransactionRepository {
   TransactionRepositoryImpl(this.apiService);
 
   @override
-  Future<void> save(TransactionModel transaction) async {
-    await apiService.post(
-      '/transactions',
-      data: {
-        'amount': transaction.amount,
-        'date': transaction.date.toIso8601String(),
-      },
-    );
-  }
-
-  @override
   Future<List<TransactionModel>> fetchAll() async {
-    final List data = await apiService.get('/transactions');
+    final List data = await apiService.get('/api/transactions');
 
     return data.map((json) {
-      return TransactionModel(
-        amount: json['amount'].toDouble(),
-        date: DateTime.parse(json['date']),
-      );
+      return TransactionModel.fromJson(json as Map<String, dynamic>);
     }).toList();
   }
 }
