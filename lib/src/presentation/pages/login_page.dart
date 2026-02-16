@@ -49,15 +49,12 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 40),
-                // Header
                 Text(
                   'Login',
                   style: Theme.of(context).textTheme.displayMedium,
                   textAlign: TextAlign.center,
                 ),
-                // Spacer to push form fields to bottom
                 const Expanded(child: SizedBox()),
-                // Form fields with bottom padding
                 Padding(
                   padding: const EdgeInsets.only(bottom: 48.0),
                   child: Column(
@@ -75,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 20),
-                      // Password Text Field
                       TextField(
                         controller: _passwordController,
                         decoration: InputDecoration(

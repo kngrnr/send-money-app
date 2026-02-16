@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:send_money_app/src/core/network/app_exception.dart';
 import 'package:send_money_app/src/core/network/dio_client.dart';
 import 'package:send_money_app/src/data/usecases/login_usecase.dart';
 import 'package:send_money_app/src/presentation/cubit/auth/auth_state.dart';
@@ -19,9 +21,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       final response = await loginUseCase.execute(username, password);
-      // Set the bearer token for subsequent requests
       dioClient.setToken(response.token);
       emit(AuthLoaded(user: response.user, token: response.token));
+    } on DioException catch (e) {
+      final errorMessage = (e.error is AppException)
+          ? (e.error as AppException).message
+          : e.message ?? 'An error occurred';
+      emit(AuthError(errorMessage));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -30,9 +36,13 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logout() async {
     try {
       await logoutUseCase.execute();
-      // Clear the token and remove from dio client
       dioClient.clearToken();
       emit(AuthUnauthenticated());
+    } on DioException catch (e) {
+      final errorMessage = (e.error is AppException)
+          ? (e.error as AppException).message
+          : e.message ?? 'An error occurred';
+      emit(AuthError(errorMessage));
     } catch (e) {
       emit(AuthError(e.toString()));
     }

@@ -14,19 +14,22 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../../data/repositories/auth_repository.dart' as _i481;
+import '../../data/repositories/send_money_repository.dart' as _i520;
 import '../../data/repositories/transaction_repository.dart' as _i684;
 import '../../data/repositories/wallet_repository.dart' as _i147;
 import '../../data/usecases/login_usecase.dart' as _i917;
+import '../../data/usecases/send_money_usecase.dart' as _i493;
 import '../../data/usecases/transaction_usecase.dart' as _i456;
 import '../../data/usecases/wallet_usecase.dart' as _i292;
-import '../../presentation/cubit/auth/auth_cubit.dart' as _i100;
+import '../../presentation/cubit/auth/auth_cubit.dart' as _i714;
+import '../../presentation/cubit/send_money/send_money_cubit.dart' as _i183;
 import '../../presentation/cubit/transaction/transaction_history_cubit.dart'
-    as _i101;
-import '../../presentation/cubit/wallet/wallet_cubit.dart' as _i102;
+    as _i1038;
+import '../../presentation/cubit/wallet/wallet_cubit.dart' as _i748;
 import '../network/api_service.dart' as _i921;
 import '../network/dio_api_service.dart' as _i906;
 import '../network/dio_client.dart' as _i667;
-import 'cubit_module.dart' as _i566;
+import 'cubit_module.dart' as _i551;
 import 'network_module.dart' as _i567;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -43,13 +46,9 @@ extension GetItInjectableX on _i174.GetIt {
     final networkModule = _$NetworkModule();
     final cubitModule = _$CubitModule();
     gh.singleton<_i667.DioClient>(() => networkModule.dioClient);
-    gh.lazySingleton<_i456.FetchTransactionsUseCase>(() => cubitModule
-        .fetchTransactionsUseCase(gh<_i684.TransactionRepository>()));
     gh.singleton<_i361.Dio>(() => networkModule.dio(gh<_i667.DioClient>()));
     gh.lazySingleton<_i921.ApiService>(
         () => _i906.DioApiService(gh<_i361.Dio>()));
-    gh.lazySingleton<_i101.TransactionHistoryCubit>(() => cubitModule
-        .transactionHistoryCubit(gh<_i456.FetchTransactionsUseCase>()));
     gh.lazySingleton<_i684.TransactionRepository>(
         () => _i684.TransactionRepositoryImpl(gh<_i921.ApiService>()));
     gh.lazySingleton<_i147.WalletRepository>(
@@ -60,16 +59,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => cubitModule.loginUseCase(gh<_i481.AuthRepository>()));
     gh.lazySingleton<_i917.LogoutUseCase>(
         () => cubitModule.logoutUseCase(gh<_i481.AuthRepository>()));
-    gh.lazySingleton<_i100.AuthCubit>(() => cubitModule.authCubit(
+    gh.lazySingleton<_i520.SendMoneyRepository>(
+        () => _i520.SendMoneyRepositoryImpl(gh<_i921.ApiService>()));
+    gh.lazySingleton<_i456.FetchTransactionsUseCase>(() => cubitModule
+        .fetchTransactionsUseCase(gh<_i684.TransactionRepository>()));
+    gh.lazySingleton<_i714.AuthCubit>(() => cubitModule.authCubit(
           gh<_i917.LoginUseCase>(),
           gh<_i917.LogoutUseCase>(),
           gh<_i667.DioClient>(),
         ));
+    gh.lazySingleton<_i493.SendMoneyUseCase>(
+        () => cubitModule.sendMoneyUseCase(gh<_i520.SendMoneyRepository>()));
     gh.lazySingleton<_i292.GetWalletUseCase>(
         () => cubitModule.getWalletUseCase(gh<_i147.WalletRepository>()));
     gh.lazySingleton<_i292.DeductBalanceUseCase>(
         () => cubitModule.deductBalanceUseCase(gh<_i147.WalletRepository>()));
-    gh.lazySingleton<_i102.WalletCubit>(() => cubitModule.walletCubit(
+    gh.lazySingleton<_i183.SendMoneyCubit>(
+        () => cubitModule.sendMoneyCubit(gh<_i493.SendMoneyUseCase>()));
+    gh.lazySingleton<_i1038.TransactionHistoryCubit>(() => cubitModule
+        .transactionHistoryCubit(gh<_i456.FetchTransactionsUseCase>()));
+    gh.lazySingleton<_i748.WalletCubit>(() => cubitModule.walletCubit(
           gh<_i292.GetWalletUseCase>(),
           gh<_i292.DeductBalanceUseCase>(),
         ));
@@ -79,4 +88,4 @@ extension GetItInjectableX on _i174.GetIt {
 
 class _$NetworkModule extends _i567.NetworkModule {}
 
-class _$CubitModule extends _i566.CubitModule {}
+class _$CubitModule extends _i551.CubitModule {}

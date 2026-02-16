@@ -16,7 +16,19 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
   @override
   Future<List<TransactionModel>> fetchAll() async {
-    final List data = await apiService.get('/api/transactions');
+    final response = await apiService.get('/api/transactions');
+    
+    final List data;
+    if (response is List) {
+      data = response;
+    } else if (response is Map<String, dynamic>) {
+      data = response['transactions'] ?? 
+             response['data'] ?? 
+             response['items'] ?? 
+             [];
+    } else {
+      data = [];
+    }
 
     return data.map((json) {
       return TransactionModel.fromJson(json as Map<String, dynamic>);

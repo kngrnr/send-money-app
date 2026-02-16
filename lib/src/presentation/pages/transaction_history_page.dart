@@ -18,7 +18,6 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch transactions for the current authenticated user
     context.read<TransactionHistoryCubit>().fetchTransactions();
   }
 

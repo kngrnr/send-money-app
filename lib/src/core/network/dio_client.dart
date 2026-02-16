@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 class DioClient {
   final Dio _dio;
   final String baseUrl;
-  
-  // Token managed internally
   String? _token;
 
   DioClient({
@@ -49,7 +47,6 @@ class DioClient {
     ]);
   }
 
-  // Auth Interceptor - Adds Bearer token to requests
   InterceptorsWrapper _authInterceptor() {
     return InterceptorsWrapper(
       onRequest: (options, handler) {

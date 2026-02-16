@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:send_money_app/src/core/network/app_exception.dart';
 import 'package:send_money_app/src/data/usecases/wallet_usecase.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_state.dart';
 
@@ -16,6 +18,11 @@ class WalletCubit extends Cubit<WalletState> {
     try {
       final wallet = await getWalletUseCase.execute();
       emit(WalletLoaded(wallet: wallet));
+    } on DioException catch (e) {
+      final errorMessage = (e.error is AppException)
+          ? (e.error as AppException).message
+          : e.message ?? 'An error occurred';
+      emit(WalletError(message: errorMessage));
     } catch (e) {
       emit(WalletError(message: e.toString()));
     }
@@ -24,8 +31,12 @@ class WalletCubit extends Cubit<WalletState> {
   Future<void> deductBalance(double amount) async {
     try {
       await deductBalanceUseCase.execute(amount);
-      // Refresh wallet after deduction
       await fetchWallet();
+    } on DioException catch (e) {
+      final errorMessage = (e.error is AppException)
+          ? (e.error as AppException).message
+          : e.message ?? 'An error occurred';
+      emit(WalletError(message: errorMessage));
     } catch (e) {
       emit(WalletError(message: e.toString()));
     }

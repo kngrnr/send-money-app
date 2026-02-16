@@ -11,7 +11,6 @@ class FetchTransactionsUseCase {
   /// Sorted from latest to oldest
   Future<List<TransactionModel>> execute() async {
     final transactions = await repository.fetchAll();
-    // Sort by date in descending order (latest first)
     transactions.sort((a, b) => b.date.compareTo(a.date));
     return transactions;
   }

@@ -1,12 +1,15 @@
 import 'package:injectable/injectable.dart';
 import 'package:send_money_app/src/core/network/dio_client.dart';
 import 'package:send_money_app/src/data/repositories/auth_repository.dart';
+import 'package:send_money_app/src/data/repositories/send_money_repository.dart';
 import 'package:send_money_app/src/data/repositories/transaction_repository.dart';
 import 'package:send_money_app/src/data/repositories/wallet_repository.dart';
 import 'package:send_money_app/src/data/usecases/login_usecase.dart';
+import 'package:send_money_app/src/data/usecases/send_money_usecase.dart';
 import 'package:send_money_app/src/data/usecases/transaction_usecase.dart';
 import 'package:send_money_app/src/data/usecases/wallet_usecase.dart';
 import 'package:send_money_app/src/presentation/cubit/auth/auth_cubit.dart';
+import 'package:send_money_app/src/presentation/cubit/send_money/send_money_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/transaction/transaction_history_cubit.dart';
 import 'package:send_money_app/src/presentation/cubit/wallet/wallet_cubit.dart';
 
@@ -38,6 +41,11 @@ abstract class CubitModule {
   ) =>
       FetchTransactionsUseCase(repository);
 
+  /// Send Money Use Case
+  @lazySingleton
+  SendMoneyUseCase sendMoneyUseCase(SendMoneyRepository repository) =>
+      SendMoneyUseCase(repository);
+
   /// Auth Cubit
   @lazySingleton
   AuthCubit authCubit(
@@ -66,4 +74,9 @@ abstract class CubitModule {
       TransactionHistoryCubit(
         fetchTransactionsUseCase: fetchTransactionsUseCase,
       );
+
+  /// Send Money Cubit
+  @lazySingleton
+  SendMoneyCubit sendMoneyCubit(SendMoneyUseCase sendMoneyUseCase) =>
+      SendMoneyCubit(sendMoneyUseCase: sendMoneyUseCase);
 }

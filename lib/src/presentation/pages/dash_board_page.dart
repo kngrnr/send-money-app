@@ -19,7 +19,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch wallet balance on page load
     context.read<WalletCubit>().fetchWallet();
   }
 
@@ -41,7 +40,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
           padding: const EdgeInsets.all(16.0),
           child: Stack(
             children: [
-              // RefreshIndicator covering the whole scrollable area
               RefreshIndicator(
                 onRefresh: () async {
                   context.read<WalletCubit>().fetchWallet();
@@ -51,7 +49,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Wallet Balance Card
                       SizedBox(
                         height: 150,
                         child: BlocBuilder<WalletCubit, WalletState>(
@@ -73,7 +70,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Balance Label and Toggle
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -101,7 +97,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ],
                                   ),
                                   const SizedBox(height: 12),
-                                  // Balance Amount
                                   switch (state) {
                                     WalletLoading() => const SizedBox(
                                       height: 32,
@@ -141,24 +136,19 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           },
                         ),
                       ),
-                      // Add padding at bottom for button space
                       SizedBox(height: 130),
                     ],
                   ),
                 ),
               ),
-              // Buttons fixed at the bottom
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Send Money Button
                     ElevatedButton.icon(
-                      onPressed: () {
-                        // TODO: Navigate to send money page
-                      },
+                      onPressed: () => context.push('/send-money'),
                       icon: const Icon(Icons.send, color: Colors.white),
                       label: const Text('Send Money'),
                       style: ElevatedButton.styleFrom(
@@ -168,7 +158,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    // View Transactions Button
                     OutlinedButton.icon(
                       onPressed: () => context.push('/transaction-history'),
                       icon: const Icon(Icons.history),

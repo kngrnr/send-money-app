@@ -21,16 +21,13 @@ class DioLoggingInterceptor extends Interceptor {
   }
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // Build curl command
     final curl = StringBuffer('curl -X ${options.method}');
     curl.write(' "${options.uri}"');
     
-    // Add headers
     for (final header in options.headers.entries) {
       curl.write(' -H "${header.key}: ${header.value}"');
     }
     
-    // Add data if present
     if (options.data != null) {
       if (options.data is String) {
         curl.write(' -d \'${options.data}\'');
