@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:send_money_app/src/presentation/pages/login_page.dart';
-import 'package:send_money_app/src/presentation/pages/dash_board_page.dart';
-import 'package:send_money_app/src/presentation/pages/send_money_page.dart';
-import 'package:send_money_app/src/presentation/pages/transaction_history_page.dart';
+import 'package:send_money_app/src/presentation/pages/login/login_page.dart';
+import 'package:send_money_app/src/presentation/pages/dashboard/dashboard_page.dart';
+import 'package:send_money_app/src/presentation/pages/send_money/send_money_page.dart';
+import 'package:send_money_app/src/presentation/pages/transaction_history/transaction_history_page.dart';
 
 class AppRouter {
   static const String login = '/login';
