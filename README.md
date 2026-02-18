@@ -21,6 +21,18 @@ Use the following credentials to test the app:
 
 **Note**: When sending money, use the recipient's username (e.g., `king123` or `juan123`) as the destination username.
 
+## Architecture Diagrams
+
+The app follows a clean architecture pattern with four main layers: **Presentation** (Pages & Cubits), **Use Cases**, **Repository**, and **Network/Data**. Key components include models (`User`, `Wallet`, `TransactionModel`), repository interfaces with their implementations, use cases for each feature, and Cubits for state management.
+
+### Class Diagram
+- [Class Diagram](docs/architecture/class-diagram.md)
+
+### Sequence Diagrams
+- [Authentication Sequence](docs/sequences/auth-sequence.md)
+- [Send Money Sequence](docs/sequences/send-money-sequence.md)
+- [View Transactions Sequence](docs/sequences/view-transactions-sequence.md)
+
 ## Features
 
 - User authentication
