@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:send_money_app/src/core/network/app_exception.dart';
 import 'package:send_money_app/src/data/usecases/send_money_usecase.dart';
@@ -23,11 +22,8 @@ class SendMoneyCubit extends Cubit<SendMoneyState> {
         message: response.message,
         transactionId: response.transactionId,
       ));
-    } on DioException catch (e) {
-      final errorMessage = (e.error is AppException)
-          ? (e.error as AppException).message
-          : e.message ?? 'An error occurred';
-      emit(SendMoneyError(message: errorMessage));
+    } on AppException catch (e) {
+      emit(SendMoneyError(message: e.message));
     } catch (e) {
       emit(SendMoneyError(message: e.toString()));
     }
