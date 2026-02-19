@@ -22,11 +22,6 @@ final GetIt locator = GetIt.instance;
 )
 void configureDependencies() => locator.init();
 
-/// Setup with custom environment (dev, prod, test)
-void configureDependenciesForEnvironment(String environment) {
-  locator.init(environment: environment);
-}
-
 /// Reset the locator (useful for testing)
 Future<void> resetLocator() async {
   await locator.reset();
